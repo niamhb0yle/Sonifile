@@ -60,11 +60,12 @@ class HelloMagics(Magics):
         while user_input != "stop":
             if user_input in fileDict:
                 size = (file_size_dict[user_input]) / 100
-                if (len(fileDict[user_input].split('\\'))) == 1:
+                if (len(fileDict[user_input].split(os.getcwd())[1].split(os.sep))) == 2:
                     HelloMagics.play_file_size(self,size)
                 else:
-                    for x in range (len(fileDict[user_input].split(os.getcwd())[1].split('\\'))):
-                        print(fileDict[user_input].split(os.getcwd())[1].split('\\')[x])
+                    for x in range (len(fileDict[user_input].split(os.getcwd())[1].split(os.sep))):
+                        print(fileDict[user_input].split(os.getcwd())[1].split(os.sep)[x])
+                        print(fileDict[user_input])
                         HelloMagics.play_file_size(self,size)
                         time.sleep(0.3)
             else:
