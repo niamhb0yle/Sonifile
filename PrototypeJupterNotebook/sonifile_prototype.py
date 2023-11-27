@@ -38,7 +38,7 @@ class HelloMagics(Magics):
     @line_magic
     def select_from_dummy_folder(self, init):
         global fileDict
-        HelloMagics.list_directory_tree_with_indentation(self,"C:", 0)
+        HelloMagics.list_directory_tree_with_indentation(self,os.getcwd(), 0)
         file_size_dict = {}
         for i in fileDict:
             counter = 0 
@@ -59,11 +59,12 @@ class HelloMagics(Magics):
         user_input = input("Select a file")
         while user_input != "stop":
             if user_input in fileDict:
-                size = file_size_dict[user_input] / 100
+                size = (file_size_dict[user_input]) / 100
                 if (len(fileDict[user_input].split('\\'))) == 1:
                     HelloMagics.play_file_size(self,size)
                 else:
-                    for x in range (len(fileDict[user_input].split('\\'))):
+                    for x in range (len(fileDict[user_input].split(os.getcwd())[1].split('\\'))):
+                        print(fileDict[user_input].split(os.getcwd())[1].split('\\')[x])
                         HelloMagics.play_file_size(self,size)
                         time.sleep(0.3)
             else:
