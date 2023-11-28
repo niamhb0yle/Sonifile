@@ -9,7 +9,7 @@ fileDict = {}
 class HelloMagics(Magics):
     @line_magic
     def play_file_size(self,file_size_mbytes):
-        sd.play(file_size_mbytes * np.sin(0.1*np.arange(176400/3)), 44000) #the second parameter is the pitch
+        sd.play(file_size_mbytes * np.sin(0.1*np.arange(176400/3)), 44000) 
         
     fileDict = {}
     @line_magic
@@ -20,21 +20,15 @@ class HelloMagics(Magics):
             if os.path.isfile(item_path):
                 counter = 0
                 print(f"{'  ' * indent}File: {item}")
-                #fileDict[item] = item_path#.split('\\')
                 try:
                     f = open(item_path, "r")
                     fileDict[item] = item_path
                 except:
                     pass
-    #             fileList = item_path.split('\\')
-    #             fileDict[fileList[-1]] = 0
             elif os.path.isdir(item_path):
                 print(f"{'  ' * indent}Directory: {item}")
                 HelloMagics.list_directory_tree_with_indentation(self, item_path, indent+1)
 
-                
-    #list_directory_tree_with_indentation("C:")
-    #print(fileDict)
     @line_magic
     def select_from_dummy_folder(self, init):
         global fileDict
@@ -52,20 +46,19 @@ class HelloMagics(Magics):
                     except:
                         break
             except:
-                #print("file wont open")
                 pass
             file_size_dict[i] = counter
-            print(i)#,fileDict[i], counter)
+            print(i)
         user_input = input("Select a file")
         while user_input != "stop":
             if user_input in fileDict:
                 size = (file_size_dict[user_input]) / 100
+                print(fileDict[user_input])
                 if (len(fileDict[user_input].split(os.getcwd())[1].split(os.sep))) == 2:
                     HelloMagics.play_file_size(self,size)
                 else:
                     for x in range (len(fileDict[user_input].split(os.getcwd())[1].split(os.sep))):
                         print(fileDict[user_input].split(os.getcwd())[1].split(os.sep)[x])
-                        print(fileDict[user_input])
                         HelloMagics.play_file_size(self,size)
                         time.sleep(0.3)
             else:
